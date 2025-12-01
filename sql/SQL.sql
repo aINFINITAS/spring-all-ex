@@ -26,3 +26,38 @@ String finalSql = sql
 
 System.out.println
 ("🧾 Final SQL:\n" + finalSql);
+
+
+
+
+
+CREATE
+OR REPLACE VIEW v_users_status AS
+SELECT u.id,
+       u.name,
+       u.email,
+       u.status,
+       CASE u.status
+           WHEN 'A' THEN 'ACTIVE'
+           WHEN 'I' THEN 'INACTIVE'
+           WHEN 'B' THEN 'BLOCKED'
+           ELSE 'UNKNOWN'
+           END AS status_name,
+       u.created_at
+FROM users u;
+
+
+
+CREATE
+OR REPLACE VIEW v_users_age_group AS
+SELECT u.id,
+       u.name,
+       u.age,
+       CASE
+           WHEN u.age < 18 THEN 'CHILD'
+           WHEN u.age BETWEEN 18 AND 30 THEN 'YOUNG'
+           WHEN u.age BETWEEN 31 AND 60 THEN 'ADULT'
+           ELSE 'SENIOR'
+           END AS age_group
+FROM users u;
+
